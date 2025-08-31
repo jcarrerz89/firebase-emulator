@@ -1,0 +1,15 @@
+{
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "build": "echo 'No build required'",
+    "serve": "echo 'Functions ready'"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "private": true
+}

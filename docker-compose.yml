@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  firebase-emulator:
+    build: .
+    container_name: firebase-emulator
+    ports:
+      # Firebase UI
+      - "4000:4000"
+      # Firebase Functions
+      - "5001:5001"
+      # Firestore
+      - "8090:8090"
+      # Firebase Auth
+      - "9099:9099"
+      # Firebase Storage
+      - "9199:9199"
+      # Firebase Hub
+      - "4400:4400"
+      # Firebase Hosting
+      - "5080:5080"
+    volumes:
+      # Persist emulator data
+      - ./saved-data:/app/saved-data
+      # Mount logs for debugging
+      - ./logs:/app/logs
+    environment:
+      - FIREBASE_EMULATOR_HUB=0.0.0.0:4400
+      - GCLOUD_PROJECT=demo-nomades-webapp
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

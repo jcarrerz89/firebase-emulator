@@ -1,0 +1,71 @@
+{
+  "emulators": {
+    "singleProjectMode": true,
+    "firestore": {
+      "host": "0.0.0.0",
+      "port": 8090,
+      "rules": "firestore.rules"
+    },
+    "ui": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 4000
+    },
+    "auth": {
+      "host": "0.0.0.0",
+      "port": 9099
+    },
+    "functions": {
+      "host": "0.0.0.0",
+      "port": 5001
+    },
+    "storage": {
+      "host": "0.0.0.0",
+      "port": 9199,
+      "rules": "src/config/storage.rules"
+    },
+    "hosting": {
+      "host": "0.0.0.0",
+      "port": 5080
+    },
+    "hub": {
+      "host": "0.0.0.0",
+      "port": 4400
+    }
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "functions"
+  },
+  "storage": {
+    "rules": "src/config/storage.rules"
+  },
+  "firestore": {
+    "indexes": {
+      "indexes": [
+        {
+          "collectionGroup": "listings",
+          "queryScope": "COLLECTION",
+          "fields": [
+            { "fieldPath": "location.latitude", "order": "ASCENDING" },
+            { "fieldPath": "location.longitude", "order": "ASCENDING" }
+          ]
+        }
+      ],
+      "fieldOverrides": []
+    }
+  }
+}
