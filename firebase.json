@@ -52,12 +52,12 @@
   },
   "storage": [
     {
-      "target": "main",
-      "rules": "src/config/storage.main.rules"
+      "target": "private",
+      "rules": "src/config/storage.private.rules"
     },
     {
-      "target": "secondary", 
-      "rules": "src/config/storage.secondary.rules"
+      "target": "public", 
+      "rules": "src/config/storage.public.rules"
     }
   ],
   "firestore": {

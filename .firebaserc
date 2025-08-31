@@ -5,11 +5,11 @@
   "targets": {
     "nomades-webapp": {
       "storage": {
-        "main": [
-          "demo-nomades-webapp.appspot.com"
+        "private": [
+          "nomades-webapp.appspot.com"
         ],
-        "secondary": [
-          "demo-nomades-secondary.appspot.com"
+        "public": [
+          "nogal-public"
         ]
       }
     }

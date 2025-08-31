@@ -3,16 +3,16 @@
 ## Current Setup ✅
 Your emulator now supports multiple storage buckets configuration that will work in production:
 
-- **Main Bucket**: `demo-nomades-webapp.appspot.com`
-- **Secondary Bucket**: `demo-nomades-secondary.appspot.com`
+- **Private Bucket**: `nomades-webapp.appspot.com`
+- **Public Bucket**: `nogal-public`
 
 Both are accessible via the same Storage emulator at `http://localhost:9199`
 
 ## Option 1: Multiple Storage Buckets (Current)
 
 ### Configuration Files:
-- `src/config/storage.main.rules` - Rules for main bucket
-- `src/config/storage.secondary.rules` - Rules for secondary bucket
+- `src/config/storage.private.rules` - Rules for private bucket
+- `src/config/storage.public.rules` - Rules for public bucket
 - `firebase.json` - Configured with multiple storage targets
 
 ### Client Code Example:
@@ -20,13 +20,13 @@ Both are accessible via the same Storage emulator at `http://localhost:9199`
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
 // Initialize multiple storage buckets
-const mainStorage = getStorage(app, "gs://demo-nomades-webapp.appspot.com");
-const secondaryStorage = getStorage(app, "gs://demo-nomades-secondary.appspot.com");
+const privateStorage = getStorage(app, "gs://nomades-webapp.appspot.com");
+const publicStorage = getStorage(app, "gs://nogal-public");
 
 // Connect to emulator in development
 if (location.hostname === "localhost") {
-  connectStorageEmulator(mainStorage, "localhost", 9199);
-  connectStorageEmulator(secondaryStorage, "localhost", 9199);
+  connectStorageEmulator(privateStorage, "localhost", 9199);
+  connectStorageEmulator(publicStorage, "localhost", 9199);
 }
 ```
 
@@ -47,11 +47,11 @@ services:
 
 ### Client Code:
 ```javascript
-const mainStorage = getStorage(app);
-const secondaryStorage = getStorage(app);
+const privateStorage = getStorage(app);
+const publicStorage = getStorage(app);
 
-connectStorageEmulator(mainStorage, "localhost", 9199);
-connectStorageEmulator(secondaryStorage, "localhost", 9200);
+connectStorageEmulator(privateStorage, "localhost", 9199);
+connectStorageEmulator(publicStorage, "localhost", 9200);
 ```
 
 ## How to Use Multiple Buckets
@@ -60,19 +60,19 @@ connectStorageEmulator(secondaryStorage, "localhost", 9200);
 ```javascript
 import { ref, uploadBytes } from 'firebase/storage';
 
-// Upload to main bucket
-const mainRef = ref(mainStorage, 'public/image.jpg');
-await uploadBytes(mainRef, file);
+// Upload to private bucket (user-specific content)
+const privateRef = ref(privateStorage, 'user/123/profile.jpg');
+await uploadBytes(privateRef, file);
 
-// Upload to secondary bucket (e.g., backups)
-const secondaryRef = ref(secondaryStorage, 'backups/image.jpg');
-await uploadBytes(secondaryRef, file);
+// Upload to public bucket (public assets)
+const publicRef = ref(publicStorage, 'assets/logo.png');
+await uploadBytes(publicRef, file);
 ```
 
 ### 2. Different Rules for Each Bucket:
-- **Main**: Public uploads, private user folders
-- **Secondary**: Admin-only backups, system logs
+- **Private**: User-specific content, admin areas, premium features
+- **Public**: Public assets, uploads, cached content
 
-### 3. Environment-Specific Buckets:
-- **Main**: User content, public assets
-- **Secondary**: Analytics data, system backups
+### 3. Use Cases:
+- **Private**: Personal files, admin documents, premium content
+- **Public**: App assets, public uploads, CDN content

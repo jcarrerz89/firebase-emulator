@@ -70,20 +70,20 @@ The emulator configuration is defined in `firebase.json`. The project is set to 
 
 This setup supports multiple Firebase Storage buckets:
 
-- **Main Bucket**: `demo-nomades-webapp.appspot.com` (with rules in `src/config/storage.main.rules`)
-- **Secondary Bucket**: `demo-nomades-secondary.appspot.com` (with rules in `src/config/storage.secondary.rules`)
+- **Private Bucket**: `nomades-webapp.appspot.com` (with rules in `src/config/storage.private.rules`)
+- **Public Bucket**: `nogal-public` (with rules in `src/config/storage.public.rules`)
 
 Both buckets are accessible through the same Storage emulator at `http://localhost:9199`. In your client code:
 
 ```javascript
 import { getStorage, connectStorageEmulator } from 'firebase/storage';
 
-const mainStorage = getStorage(app, "gs://demo-nomades-webapp.appspot.com");
-const secondaryStorage = getStorage(app, "gs://demo-nomades-secondary.appspot.com");
+const privateStorage = getStorage(app, "gs://nomades-webapp.appspot.com");
+const publicStorage = getStorage(app, "gs://nogal-public");
 
 if (location.hostname === "localhost") {
-  connectStorageEmulator(mainStorage, "localhost", 9199);
-  connectStorageEmulator(secondaryStorage, "localhost", 9199);
+  connectStorageEmulator(privateStorage, "localhost", 9199);
+  connectStorageEmulator(publicStorage, "localhost", 9199);
 }
 ```
 
