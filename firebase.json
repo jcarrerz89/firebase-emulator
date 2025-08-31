@@ -50,9 +50,16 @@
   "functions": {
     "source": "functions"
   },
-  "storage": {
-    "rules": "src/config/storage.rules"
-  },
+  "storage": [
+    {
+      "target": "main",
+      "rules": "src/config/storage.main.rules"
+    },
+    {
+      "target": "secondary", 
+      "rules": "src/config/storage.secondary.rules"
+    }
+  ],
   "firestore": {
     "indexes": {
       "indexes": [

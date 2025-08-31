@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "demo-nomades-webapp"
-  }
+  },
+  "targets": {
+    "nomades-webapp": {
+      "storage": {
+        "main": [
+          "demo-nomades-webapp.appspot.com"
+        ],
+        "secondary": [
+          "demo-nomades-secondary.appspot.com"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

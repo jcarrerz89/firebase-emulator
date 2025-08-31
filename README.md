@@ -64,7 +64,28 @@ The emulator data is automatically exported to the `saved-data` directory and pe
 
 ## Configuration
 
-The emulator configuration is defined in `firebase.json`. The project is set to `nomades-webapp` as defined in `.firebaserc`.
+The emulator configuration is defined in `firebase.json`. The project is set to `demo-nomades-webapp` as defined in `.firebaserc`.
+
+### Multiple Storage Buckets
+
+This setup supports multiple Firebase Storage buckets:
+
+- **Main Bucket**: `demo-nomades-webapp.appspot.com` (with rules in `src/config/storage.main.rules`)
+- **Secondary Bucket**: `demo-nomades-secondary.appspot.com` (with rules in `src/config/storage.secondary.rules`)
+
+Both buckets are accessible through the same Storage emulator at `http://localhost:9199`. In your client code:
+
+```javascript
+import { getStorage, connectStorageEmulator } from 'firebase/storage';
+
+const mainStorage = getStorage(app, "gs://demo-nomades-webapp.appspot.com");
+const secondaryStorage = getStorage(app, "gs://demo-nomades-secondary.appspot.com");
+
+if (location.hostname === "localhost") {
+  connectStorageEmulator(mainStorage, "localhost", 9199);
+  connectStorageEmulator(secondaryStorage, "localhost", 9199);
+}
+```
 
 ## Troubleshooting
 
