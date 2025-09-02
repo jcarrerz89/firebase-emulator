@@ -1,9 +1,15 @@
 version: '3.8'
 
+networks:
+  firebase-network:
+    driver: bridge
+
 services:
   firebase-emulator:
     build: .
     container_name: firebase-emulator
+    networks:
+      - firebase-network
     ports:
       # Firebase UI
       - "4000:4000"
@@ -26,7 +32,7 @@ services:
       - ./logs:/app/logs
     environment:
       - FIREBASE_EMULATOR_HUB=0.0.0.0:4400
-      - GCLOUD_PROJECT=demo-nomades-webapp
+      - GCLOUD_PROJECT=nomades-webapp
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000"]

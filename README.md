@@ -64,7 +64,7 @@ The emulator data is automatically exported to the `saved-data` directory and pe
 
 ## Configuration
 
-The emulator configuration is defined in `firebase.json`. The project is set to `demo-nomades-webapp` as defined in `.firebaserc`.
+The emulator configuration is defined in `firebase.json`. The project is set to `omades-webapp` as defined in `.firebaserc`.
 
 ### Multiple Storage Buckets
 

@@ -41,7 +41,7 @@ EXPOSE 5080
 
 # Set environment variables
 ENV FIREBASE_EMULATOR_HUB=0.0.0.0:4400
-ENV GCLOUD_PROJECT=demo-nomades-webapp
+ENV GCLOUD_PROJECT=nomades-webapp
 
 # Create a non-root user for security
 RUN addgroup -g 1001 -S firebase && \

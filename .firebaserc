@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "demo-nomades-webapp"
+    "default": "nomades-webapp"
   },
   "targets": {
     "nomades-webapp": {
